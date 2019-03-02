@@ -111,4 +111,15 @@ public class GiangVienDao {
 		return list;
 	}
 
+	public int count() throws SQLException {
+		int count = 0;
+		String sql = "select count(*) from GIANGVIEN";
+		PreparedStatement statment = con.prepareStatement(sql);
+		ResultSet result = statment.executeQuery();
+		while (result.next()) {
+			count = result.getInt(1);
+		}
+		return count;
+	}
+
 }

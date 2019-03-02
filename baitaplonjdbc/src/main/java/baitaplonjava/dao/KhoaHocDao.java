@@ -97,4 +97,15 @@ public class KhoaHocDao {
 		return list;
 	}
 
+	public int count() throws SQLException {
+		int count = 0;
+		String sql = "select count(*) from KHOAHOC";
+		PreparedStatement st = con.prepareStatement(sql);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			count = result.getInt(1);
+		}
+		return count;
+	}
+
 }

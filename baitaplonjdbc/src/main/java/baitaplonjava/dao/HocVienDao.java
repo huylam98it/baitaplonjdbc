@@ -21,7 +21,6 @@ public class HocVienDao {
 	public HocVien getHocVien(int id) throws SQLException {
 		HocVien hv = null;
 		String sql = "select * from HOCVIEN where hocvien_ma = ?";
-
 		PreparedStatement preparedStatement = con.prepareStatement(sql);
 		preparedStatement.setInt(1, id);
 		ResultSet result = preparedStatement.executeQuery();
@@ -32,7 +31,6 @@ public class HocVienDao {
 			hv.setHocVien_Tuoi(result.getInt("hovien_tuoi"));
 			hv.setHocVien_Phone(result.getString("hocvien_sdt"));
 		}
-
 		return hv;
 	}
 
@@ -93,6 +91,17 @@ public class HocVienDao {
 			hocViens.add(hv);
 		}
 		return hocViens;
+	}
+
+	public int count() throws SQLException {
+		int count = 0;
+		String sql = "select count(*) from HOCVIEN";
+		PreparedStatement st = con.prepareStatement(sql);
+		ResultSet result = st.executeQuery();
+		while (result.next()) {
+			count = result.getInt(1);
+		}
+		return count;
 	}
 
 }

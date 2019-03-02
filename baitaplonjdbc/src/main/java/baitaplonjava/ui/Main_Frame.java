@@ -2,9 +2,12 @@ package baitaplonjava.ui;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+
+import baitaplonjava.config.JDBC_Connection;
 
 public class Main_Frame extends JFrame {
 
@@ -20,6 +23,12 @@ public class Main_Frame extends JFrame {
 						new String[] { "Đồng ý", "Không!" }, JOptionPane.NO_OPTION);
 				if (result == JOptionPane.YES_OPTION) {
 					e.getWindow().dispose();
+					try {
+						JDBC_Connection.getConnection().close();
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});

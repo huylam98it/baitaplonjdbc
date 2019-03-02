@@ -196,7 +196,8 @@ public class QuanLyKhoaHoc_Panel extends JPanel {
 					kh.setKhoaHoc_Gia(Integer.parseInt(giaTam));
 					int maGiangVien = Integer.parseInt(maGvTam);
 					kh.setGiangVien_Ma(maGiangVien);
-					MainApp.khoaHocDao.updateKhoaHoc(kh);;
+					MainApp.khoaHocDao.updateKhoaHoc(kh);
+					;
 					loadData();
 					JOptionPane.showMessageDialog(null, "Sửa khóa học thành công");
 				} catch (ThieuThongTinEx ex) {
@@ -240,10 +241,49 @@ public class QuanLyKhoaHoc_Panel extends JPanel {
 
 		JButton btnTrc = new JButton("Trước");
 		btnTrc.setBounds(528, 443, 97, 40);
+		btnTrc.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (page > 0) {
+					page--;
+				}
+				if (page == 0) {
+
+				}
+				try {
+					loadData();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(btnTrc);
 
 		JButton btnSau = new JButton("Sau");
 		btnSau.setBounds(756, 443, 97, 40);
+		btnSau.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					int pageCount = MainApp.khoaHocDao.count() / 50;
+					if (pageCount * 50 < MainApp.khoaHocDao.count())
+						pageCount += 1;
+					if (page < (pageCount - 1)) {
+						page++;
+					}
+					if (page == (pageCount - 1)) {
+
+					}
+					loadData();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+
+			}
+		});
 		add(btnSau);
 
 		try {
